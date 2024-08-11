@@ -9,26 +9,26 @@ This repository contains code for generating Cypher queries from the user's natu
 ## How It Works
 
 ### 1. User Input Parsing
-The script begins by taking user inputs through command-line arguments. These inputs include the user's question, the graph database name, the models to be used for augmentation and Cypher query generation, and database connection details.
+The script takes in user inputs through command-line arguments. These inputs include the user's question, the graph database name, the models to be used for augmentation and Cypher query generation, and database connection details.
 
 ### 2. Graph Schema Template Generation
-The script connects to a Neo4j graph database to retrieve the schema structure (It can be replaced by other graph databases). This schema is then processed into a structured template using the `generate_graph_schema_template` function. The template will later be used to help the LLM understand the context of the graph. 
+The tool connects to a Neo4j graph database to retrieve the schema structure (Other graph databases can replace it). This schema is then processed into a structured template using the `generate_graph_schema_template` function. The template will later be used to help the LLM understand the context of the graph. 
 
 ### 3. LLM Augmentation
-Using a pre-trained language model (specified by the user), the script generates an augmented version of the user's query. This augmentation enriches the query with information derived from the graph schema, making it more contextually aware. 
+Using a pre-trained language model (specified by the user, defaults to Anthropic), the script generates an augmented version of the user's query. This augmentation enriches the query with information derived from the graph schema, making it more contextually aware. 
 
 ### 4. Cypher Query Generation
 The augmented query is then passed to a Cypher-specific model, which has been fine-tuned to generate Cypher queries. The `generate_cypher` function handles the conversion of the augmented query into a Cypher query.
 
 ### 5. GPU Memory Management
-If the script is running on a laptop (as specified by the user), it clears the GPU memory after the LLM augmentation step to free up resources for the Cypher model. The `clear_model_memory` and `print_gpu_utilization` functions are used for this purpose.
+If the tool is running on a laptop (as specified by the user), it clears the GPU memory after the LLM augmentation step to free up resources for the Cypher model. The `clear_model_memory` and `print_gpu_utilization` functions are used for this purpose.
 
 ### 6. Cypher Query Output
 Finally, the generated Cypher query is printed as the output.
 
 ## Major Components
 
-- **Huggingface Hub Integration**: The script logs into the Huggingface Hub to access the specified models.
+- **Huggingface Hub Integration**: To handle specific models.
 - **Neo4j Schema Extraction**: The `Neo4jSchema` class is used to connect to the Neo4j database and extract the schema. (This can be exchanged for specific needs)
 - **Model Handling**: The script handles two models: one for LLM augmentation and another fine-tuned for Cypher query generation. The `BitsAndBytesConfig` is used to optimize the models for efficient GPU usage.
 - **Pipeline Construction**: A text generation pipeline is constructed using the specified LLM, allowing for efficient and scalable query augmentation.
