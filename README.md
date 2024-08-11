@@ -56,6 +56,9 @@ Refer to the requirements file for all the dependencies. Major dependencies are,
 
 Ensure all dependencies are installed before running the script.
 
+## API 
+The tool can be hosted behind an API call using LiteLLM and FastAPI. A working prototype can be found in the [API folder](https://github.com/gneeraj97/CypherK9/tree/main/api). 
+
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
